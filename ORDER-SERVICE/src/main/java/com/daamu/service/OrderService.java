@@ -1,5 +1,6 @@
 package com.daamu.service;
 
+import com.daamu.DTO.InventoeryResponse;
 import com.daamu.DTO.OrderLineItemDto;
 import com.daamu.DTO.OrderRequest;
 import com.daamu.model.Order;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,14 +33,21 @@ public class OrderService {
                 .stream()
                 .map(this::mapToDto)
                 .toList();
-       order.setOrderLineItemsList(orderLineItemsList);
+        order.setOrderLineItemsList(orderLineItemsList);
+        List<String>skuCodes=order.getOrderLineItemsList().stream()
+               .map(OrderLineItems::getSkuCode)
+               .toList();
 //       call inventory service and place order if product is into stock
-       boolean result= webClient.get()
-                .uri("http://localhost:8083/api/inventrory")
+        InventoeryResponse[] inventoeryResponses = webClient.get()
+                .uri("http://localhost:8083/api/inventory",
+                        uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes) // Corrected parameter name here
+                                .build())
                 .retrieve()
-                .bodyToMono(Boolean.class)
+                .bodyToMono(InventoeryResponse[].class)
                 .block();
-       if(result) {
+
+        boolean allProductInStock= Arrays.stream(inventoeryResponses).allMatch(InventoeryResponse::isInStock);
+       if(allProductInStock) {
            orderRepository.save(order);
            log.info("{} Order successfully ", order.getOrderNumber());
        }

@@ -26,7 +26,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     @Autowired
     private final WebClient.Builder webClientBuilder;
-    public void placedOrder(OrderRequest orderRequest) throws IllegalAccessException {
+    public String placedOrder(OrderRequest orderRequest) throws IllegalAccessException {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
        List<OrderLineItems> orderLineItemsList = orderRequest.getOrderLineItemList()
@@ -49,7 +49,7 @@ public class OrderService {
         boolean allProductInStock= Arrays.stream(inventoeryResponses).allMatch(InventoeryResponse::isInStock);
        if(allProductInStock) {
            orderRepository.save(order);
-           log.info("{} Order successfully ", order.getOrderNumber());
+           return "Order Placed Successfully";
        }
        else
        {

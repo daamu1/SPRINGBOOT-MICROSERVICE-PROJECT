@@ -16,6 +16,33 @@ spring:
 
   application:
     name: ORDER-SERVICE
+
+resilience4j:
+  retry:
+    instances:
+      yourRetryName: # Replace 'yourRetryName' with a name of your choice for the Retry instance
+        max-retry-attempts: 3            # Maximum number of retry attempts
+        wait-duration: 500ms            # Initial wait duration before the first retry
+        max-wait-duration: 2000ms       # Maximum wait duration between retries
+        retry-on-exceptions:
+          - java.io.IOException        # List of exceptions to retry on (add more if needed)
+        ignore-exceptions:
+          - java.lang.IllegalArgumentException   # List of exceptions to ignore and not retry
+  circuitbreaker:
+    instances:
+      inventory: # Circuit breaker name, you can choose any name you like
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        permittedNumberOfCallsInHalfOpenState: 5
+        waitDurationInOpenState: 5000
+        failureRateThreshold: 50
+        recordExceptions:
+          - java.io.IOException
+        ignoreExceptions:
+          - java.lang.IllegalArgumentException
+        timeoutDuration: 2000 # Timeout duration in milliseconds
+
+
 #eureka:
 #  client:
 #    serviceUrl:

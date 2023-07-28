@@ -25,7 +25,7 @@ public class OrderService {
     @Autowired
     private final OrderRepository orderRepository;
     @Autowired
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
     public void placedOrder(OrderRequest orderRequest) throws IllegalAccessException {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
@@ -38,8 +38,8 @@ public class OrderService {
                .map(OrderLineItems::getSkuCode)
                .toList();
 //       call inventory service and place order if product is into stock
-        InventoeryResponse[] inventoeryResponses = webClient.get()
-                .uri("http://localhost:8083/api/inventory",
+        InventoeryResponse[] inventoeryResponses = webClientBuilder.build().get()
+                .uri("http://INVENTORY-SERVICE/api/inventory",
                         uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes) // Corrected parameter name here
                                 .build())
                 .retrieve()

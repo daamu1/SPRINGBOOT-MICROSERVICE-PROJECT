@@ -7,7 +7,14 @@
         <option value="$PROJECT_DIR$/ORDER-SERVICE/pom.xml" />
         <option value="$PROJECT_DIR$/PRODUCT-SERVICE/pom.xml" />
         <option value="$PROJECT_DIR$/INVENTORY-SERVICE/pom.xml" />
+        <option value="$PROJECT_DIR$/../DISCOVERY-SERVER/pom.xml" />
+        <option value="$PROJECT_DIR$/DISCOVERY-SERVER/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/../DISCOVERY-SERVER/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">

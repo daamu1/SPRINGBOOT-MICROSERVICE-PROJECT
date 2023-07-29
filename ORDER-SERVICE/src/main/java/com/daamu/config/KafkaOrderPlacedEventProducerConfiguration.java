@@ -11,15 +11,16 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@Component
 public class KafkaOrderPlacedEventProducerConfiguration {
-    @Value("${spring.kafka.bootstrap-servers}")
-    private String bootstrapServers; // Corrected the variable name from 'boostrapService' to 'bootstrapServers'
-
+//    @Value("${spring.kafka.bootstrap-servers}")
+    private static final String bootstrapServers="localhost:9092";
     @Bean
     public Map<String, Object> propCustomerConfig() {
         Map<String, Object> prop = new HashMap<>();

@@ -1,4 +1,4 @@
-package com.daamu;
+package com.daamu.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

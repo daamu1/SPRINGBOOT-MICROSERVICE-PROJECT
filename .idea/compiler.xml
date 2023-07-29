@@ -10,6 +10,7 @@
         <module name="INVENTORY-SERVICE" />
         <module name="API-GATEWAY" />
         <module name="PRODUCT-SERVICE" />
+        <module name="NOTIFICATION-SERVICE" />
         <module name="ORDER-SERVICE" />
         <module name="DISCOVERY-SERVER" />
       </profile>
@@ -20,6 +21,7 @@
       <module name="API-GATEWAY" options="-parameters" />
       <module name="DISCOVERY-SERVER" options="-parameters" />
       <module name="INVENTORY-SERVICE" options="-parameters" />
+      <module name="NOTIFICATION-SERVICE" options="-parameters" />
       <module name="ORDER-SERVICE" options="-parameters" />
       <module name="PRODUCT-SERVICE" options="-parameters" />
     </option>

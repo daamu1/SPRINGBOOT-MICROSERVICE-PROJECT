@@ -1,0 +1,15 @@
+server:
+  port: 8084
+
+
+spring:
+  application:
+    name: NOTIFICATION-SERVICE
+
+  cloud:
+    stream:
+      bindings:
+        notificationEventSupplier-in-0:
+          destination: notification-events
+  kafka:
+    bootstrap-servers: localhost:9092
